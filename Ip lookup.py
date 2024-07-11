@@ -1,4 +1,17 @@
-import requests
-response = requests.get("https://ipgeolocation.abstractapi.com/v1/?api_key=6dd403fcf31644198eb2b6d4996086b2&ip_address=2a0d:3344:12ac:cf10:3084:f5c4:5381:42bc&fields= country,city")
-print(response.status_code)
-print(response.content)
+import http.client
+rapidApiKey = "" #put your rapid api key here;
+ip_address = "" #set your ip address here;
+
+conn = http.client.HTTPSConnection("ip-geolocation-find-ip-location-and-ip-info.p.rapidapi.com")
+
+headers = {
+    'x-rapidapi-key': rapidApiKey, 
+    'x-rapidapi-host': "ip-geolocation-find-ip-location-and-ip-info.p.rapidapi.com"
+}
+
+conn.request("GET", f"/backend/ipinfo/?ip={ip_address}", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
